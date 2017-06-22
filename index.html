@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+    <!-- UAV Drone Form Demo (2017) by Lex Berman  https://goo.gl/Vyp1Ps -->
+    <!-- Based on  Bootstrap, Cyborg Theme  https://bootswatch.com/cyborg/ -->
+    <!-- GeoJSON Map source:  https://github.com/mapbox/geojson.io  -->    
+    <!-- Textarea Resize by Obsidian:  https://stackoverflow.com/a/25621277  --> 
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>UAV Form Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="theme/custom.css">    
+    <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
+<script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+<!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+<!--Font Awesome (added because you use icons in your prepend/append)-->
+<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/html5shiv.js"></script>
+      <script src="bootstrap/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/uav" class="navbar-brand">UAV Test</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          
+		  <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Menu <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="/uav">form</a></li>
+                <li class="divider"></li>
+                <li><a href="http://geojson.io/#map=15/42.3745/-71.1201" target="_blank">GeoJSON Map</a></li>
+              </ul>
+            </li>
+		  </ul>
+		  
+		  <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://geojson.io/#map=15/42.3745/-71.1201" target="_blank">GeoJSON Map</a></li>
+		  </ul>
+		  
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3>Submit Your Flight Plan</h3>
+            <p class="lead">There are three steps to submitting your flight plan</p>
+            <p>
+             <ol>
+              <li>input your information below</li>
+              <li>create a flight plan map using the GEOJSON map tab above.  You have two options:  <br>(ONE) draw a polygon on the map indicating the area where you want to fly, or <br>(TWO) drag and drop an external file containing your flight plan in KML or SHP formats onto the map.  <br>Either method will result in valid geojson code that will be automatically generated on the right side of the map.  Select all the geojson code on the right panel, and COPY the entire snippet, then PASTE it into the "GeoJSON code" textbox on the form below.</li>
+              <li>hit the SUBMIT button</li>
+             </ol>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+             <legend>Form</legend>
+              <form class="form-horizontal" action="uav_update.php" method="post">
+                <fieldset>
+
+                  <div class="form-group">            
+                    <label for="inputFirstName" class="col-lg-3 control-label">First Name</label>
+                     <div class="col-lg-4">
+                       <input type="text" class="form-control" name="First" placeholder="First Name" required>
+                     </div>
+                  </div>
+
+
+                  <div class="form-group">            
+                    <label for="inputLastName" class="col-lg-3 control-label">Last Name</label>
+                     <div class="col-lg-4"> 
+                       <input type="text" class="form-control" name="Last" placeholder="Last Name" required>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" name="Email" placeholder="Email" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputDroneType" class="col-lg-3 control-label">Eqpt</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" name="Drone" placeholder="UAV Drone Make and Model" required>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="Pilot"> I am a certified Pilot
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="Lic107"> I have FAA Class 107 Certification
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="inputDate" class="col-lg-3 control-label">Fly Date</label>
+                    <div class="col-lg-3">
+                      <input type="text" class="datepicker_goal" data-provide="datepicker" placeholder="requested date to fly" name="Date" required>           
+                    </div>
+                  </div>
+         
+
+                  <div class="form-group">
+                    <label for="textArea" class="col-lg-3 control-label">GeoJSON Code</label>
+                    <div class="col-lg-6">
+                      <span class="help-block">You cannot SUBMIT until you paste <a href="/http://geojson.io/#map=15/42.3745/-71.1201" target="_blank">GeoJSON Map</a> code below</span>
+                      <textarea class="form-control" rows="3" name="Geojson" placeholder="paste geojson code here" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-6 col-lg-offset-3">
+                      <button class="btn btn-default">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+
+                    </div>
+                  </div>
+
+                </fieldset>
+              </form>
+
+          </div>  <!-- end col-lg-6 -->
+         </div>   <!-- end row -->
+
+      </div>   <!-- end container -->
+<!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<!-- Date-Picker script vy Dave http://jsfiddle.net/h3WDq/287/  -->
+<script type="text/javascript">
+$('input[data-provide="datepicker"]').datepicker();
+
+// I append New Input 
+$("div.modal-body").append(" <input type=\"text\" class=\"datepicker_goal_modal\" data-provide=\"datepicker_modal\" placeholder=\"Period\">")
+
+// Immediately after append complete. i bind datepicker.
+//$('.modal-body input[data-provide="datepicker_modal"]').datepicker();
+
+$(document).on('focus', '.datepicker_goal_modal', function(){
+    $(this).datepicker();
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $('#attributeForm').formValidation();
+});
+</script>
+
+
+<script type='text/javascript'>
+
+$('textarea').each(function () {
+  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+}).on('input', function () {
+  this.style.height = 'auto';
+  this.style.height = (this.scrollHeight) + 'px';
+});
+        
+function validateText(id)
+{
+if($("#"+id).val()==null || $("#"+id).val()=="")
+{
+var div = $("#"+id).closest("div");
+div.removeClass("has-success");
+$("#glypcn"+id).remove();
+div.addClass("has-error has-feedback");
+div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+return false;
+}
+else{
+    var div = $("#"+id).closest("div");
+    div.removeClass("has-error");
+$("#glypcn"+id).remove();
+div.addClass("has-success has-feedback");
+div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+    return true;
+}
+
+}
+
+function validateEmail(id)
+{
+  var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+if(!email_regex.test($("#"+id).val()))
+{
+var div = $("#"+id).closest("div");
+div.removeClass("has-success");
+$("#glypcn"+id).remove();
+div.addClass("has-error has-feedback");
+div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+return false;
+}
+else{
+    var div = $("#"+id).closest("div");
+    div.removeClass("has-error");
+$("#glypcn"+id).remove();
+div.addClass("has-success has-feedback");
+div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+    return true;
+}
+
+}
+
+$(document).ready(
+function()
+{
+$("#contactButton").click(function()
+{
+ if(!validateText("inputName"))
+ {
+    return false;
+ }
+ if(!validateEmail("inputEmail"))
+ {
+    return false;
+ }
+ $("form#contactForm").submit();
+}
+
+    );
+}
+
+
+    );
+        
+        </script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+  </body>
+</html>
