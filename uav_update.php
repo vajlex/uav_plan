@@ -41,25 +41,28 @@ $geo_array=json_decode($geo, true);
     <meta charset="utf-8">
     <title>UAV Form Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  
-    <link rel="stylesheet" href="theme/custom.css">    
+    <!-- <link rel="stylesheet" href="theme/custom.css"> -->   
     <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
-<script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
-<!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-<link rel='stylesheet' href='http://cdn.leafletjs.com/leaflet-0.7/leaflet.css'/>
-<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-<script src='http://cdn.leafletjs.com/leaflet-0.7/leaflet.js'></script>
+    <script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+    <!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+    <!--Font Awesome (added because you use icons in your prepend/append)-->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="assets/leaflet.css" />
+    <script src="assets/leaflet.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="bootstrap/html5shiv.js"></script>
@@ -69,32 +72,22 @@ $geo_array=json_decode($geo, true);
   <body>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
+
         <div class="navbar-header">
-          <a href="/uav/" class="navbar-brand">UAV Test</a>
+          <a href="index.html" class="navbar-brand">UAV Request</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
         </div>
+
         <div class="navbar-collapse collapse" id="navbar-main">
-          
-      <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Menu <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="/uav">form</a></li>
-                <li class="divider"></li>
-                <li><a href="http://geojson.io/#map=15/42.3745/-71.1201" target="_blank">GeoJSON Map</a></li>
-              </ul>
-            </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://geojson.io/#map=15/42.3745/-71.1201" target="_blank">GeoJSON Map</a></li>
-      </ul>
-      
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/vajlex/uav_plan" target="_blank">code</a></li>
+          </ul>
         </div>
+
       </div>
     </div>
 
@@ -138,7 +131,8 @@ $polygon = json_decode($geo);
        $wkt .= $coordinates[0] . ' ' . $coordinates[1] . ', ';
      }
      $wkt .= "))";
-  echo $wkt;
+
+//  echo "\r\n";
 
 
     //  create a bbox from first point
@@ -168,12 +162,15 @@ $polygon = json_decode($geo);
     bounds = L.latLngBounds(southWest, northEast);";
 
     echo "var map = L.map('map').fitBounds(bounds);";
-    echo "mapLink = '<a href=\"http://www.openstreetmap.org/copyright\">OSM</a>';
+    echo "
+
     L.tileLayer(
-       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'basemap &copy;' + mapLink + ' code &raquo; <a href=\"http://www.dbr.nu/bio\" target=\"_new\">Lex Berman</a>',
-        maxZoom: 18,
-    }).addTo(map);";
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'basemap OSM, code Lex Berman',
+      maxZoom: 18
+      }).addTo(map);
+
+    ";
 
  //   crunch the geojson object onto the map
  echo "var myLayer = L.geoJson(undefined);
@@ -188,15 +185,15 @@ $polygon = json_decode($geo);
 
 
 
-                echo "<hr>";
+  echo "<hr>";
 
-                echo "
-                 <p>You will be contacted by email with a decision from the UAV Drone Committee.
-                 <p>If you wish to contact us please use the Submission number: 
+  echo "
+  <p>You will be contacted by email with a decision from the UAV Drone Committee.
+  <p>If you wish to contact us please use the Submission number: 
 
-                ";
+  ";
   
-                echo ' ' . $SUB_ID;
+  echo ' ' . $SUB_ID;
                
 echo "
           </div>
@@ -205,9 +202,6 @@ echo "
 
      </div>   <!-- end container -->
 
-    <script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>
-    <script src=\"bootstrap/bootstrap.min.js\"></script>
-  <script src=\"bootstrap/usebootstrap.js\"></script>
   </body>
 </html>
 
@@ -238,9 +232,6 @@ echo "
 
      </div>   <!-- end container -->
 
-    <script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>
-    <script src=\"bootstrap/bootstrap.min.js\"></script>
-  <script src=\"bootstrap/usebootstrap.js\"></script>
   </body>
 </html>
 
