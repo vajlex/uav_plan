@@ -4,5 +4,5 @@
 
 Lex Berman
 
-see live [demo](http://chgis.fas.harvard.edu/uav/)
+see live [demo](https://dbr.nu/vortex/uav_map/)
 
